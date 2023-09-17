@@ -1,0 +1,49 @@
+﻿@page
+@model teamLeadersEBI.Pages.textModel
+@{
+}
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @ViewData["ErrorMessage"]
+    </div>
+}
+
+<div class="container">
+    <form method="post">
+        <div>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required />
+        </div>
+        <div>
+            <label for="nationalID">National ID:</label>
+            <input type="number" id="nationalID" name="nationalID" required />
+        </div>
+        <div>
+            <label for="bank">Bank:</label>
+            <input type="text" id="bank" name="bank" required />
+        </div>
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required />
+        </div>
+        <div>
+            <label for="repManger">Reporting Manager:</label>
+            <input type="text" id="repManger" name="repManger" required />
+        </div>
+        <div>
+            <label for="essay">Introduce your Self:</label>
+            <input type="text" id="essay" name="essay" required />
+        </div>
+        <div>
+            <label for="pdfFile">CV/Certifications:</label>
+            <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required />
+        </div>
+        <div>
+            <label for="referal">Referal:</label>
+            <input type="text" id="referal" name="referal" required />
+        </div>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
