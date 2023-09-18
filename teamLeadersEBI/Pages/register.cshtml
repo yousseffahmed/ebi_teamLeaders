@@ -17,11 +17,17 @@
         </div>
         <div>
             <label for="nationalID">National ID:</label>
-            <input type="number" id="nationalID" name="nationalID" required />
+            <input type="text" id="nationalID" name="nationalID" required />
         </div>
         <div>
             <label for="bank">Bank:</label>
-            <input type="text" id="bank" name="bank" required />
+            <select id="bank" name="bank" asp-for="bank">
+                <option value="">Select a bank</option>
+                @foreach (var bankName in ViewData["Banks"] as string[])
+                {
+                    <option value="@bankName">@bankName</option>
+                }
+            </select>
         </div>
         <div>
             <label for="title">Title:</label>
@@ -41,9 +47,19 @@
         </div>
         <div>
             <label for="referal">Referal:</label>
-            <input type="text" id="referal" name="referal" required />
+            <input type="text" id="referal" name="referral" required />
         </div>
         <button type="submit">Register</button>
     </form>
 </div>
+
+<script>
+    var nationalIDInput = document.getElementById("nationalID");
+    nationalIDInput.addEventListener("input", function() {
+        this.value = this.value.replace(/\D/g, "");
+        if (this.value.length > 14) {
+            this.value = this.value.slice(0, 14);
+        }
+    });
+</script>
 

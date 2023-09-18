@@ -11,7 +11,7 @@ using MongoDB.Driver;
 
 namespace teamLeadersEBI.Pages
 {
-	public class textModel : PageModel
+    public class textModel : PageModel
     {
         public bool hasData = false;
         public String fullName = "";
@@ -27,7 +27,7 @@ namespace teamLeadersEBI.Pages
 
         public void OnGet()
         {
-            
+            ViewData["Banks"] = getBanks();
         }
 
         public void OnPost()
@@ -86,26 +86,45 @@ namespace teamLeadersEBI.Pages
         }
 
         public bool Exists()
+        {
+            var connectionString = "mongodb://localhost:27017";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("ebiDB");
+            var collection = database.GetCollection<BsonDocument>("regForm");
+
+            var filter = Builders<BsonDocument>.Filter.Empty;
+
+            var cursor = collection.Find(filter).ToCursor();
+
+            foreach (var document in cursor.ToEnumerable())
             {
-                var connectionString = "mongodb://localhost:27017";
-                var mongoClient = new MongoClient(connectionString);
-                var database = mongoClient.GetDatabase("ebiDB");
-                var collection = database.GetCollection<BsonDocument>("regForm");
-
-                var filter = Builders<BsonDocument>.Filter.Empty;
-
-                var cursor = collection.Find(filter).ToCursor();
-
-                foreach (var document in cursor.ToEnumerable())
+                var natID = document["natID"].AsInt32;
+                if (natID.Equals(nationalID))
                 {
-                    var natID = document["natID"].AsInt32;
-                    if (natID.Equals(nationalID))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                return false;
+            }
+            return false;
+        }
+        public string[] getBanks()
+        {
+            var connectionString = "mongodb://localhost:27017";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("Banks");
+            var collection = database.GetCollection<BsonDocument>("Banks");
+
+            List<string> banksList = new List<string>();
+
+            var filter = Builders<BsonDocument>.Filter.Empty;
+            var cursor = collection.Find(filter).ToCursor();
+
+            foreach (var document in cursor.ToEnumerable())
+            {
+                var bankName = document["name"].AsString;
+                banksList.Add(bankName);
             }
 
+            return banksList.ToArray();
         }
+    }
 }
