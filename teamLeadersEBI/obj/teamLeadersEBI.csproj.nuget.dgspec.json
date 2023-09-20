@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/youssefahmed/Projects/teamLeadersEBI/teamLeadersEBI/teamLeadersEBI.csproj": {}
+    "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\teamLeadersEBI.csproj": {}
   },
   "projects": {
-    "/Users/youssefahmed/Projects/teamLeadersEBI/teamLeadersEBI/teamLeadersEBI.csproj": {
+    "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\teamLeadersEBI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/youssefahmed/Projects/teamLeadersEBI/teamLeadersEBI/teamLeadersEBI.csproj",
+        "projectUniqueName": "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\teamLeadersEBI.csproj",
         "projectName": "teamLeadersEBI",
-        "projectPath": "/Users/youssefahmed/Projects/teamLeadersEBI/teamLeadersEBI/teamLeadersEBI.csproj",
-        "packagesPath": "/Users/youssefahmed/.nuget/packages/",
-        "outputPath": "/Users/youssefahmed/Projects/teamLeadersEBI/teamLeadersEBI/obj/",
+        "projectPath": "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\teamLeadersEBI.csproj",
+        "packagesPath": "C:\\Users\\Maram\\.nuget\\packages\\",
+        "outputPath": "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/youssefahmed/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Maram\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,6 +47,10 @@
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.21.0, )"
+            },
+            "MongoDB.Driver.Core": {
+              "target": "Package",
+              "version": "[2.21.0, )"
             }
           },
           "imports": [
@@ -66,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

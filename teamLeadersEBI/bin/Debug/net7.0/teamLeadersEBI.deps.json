@@ -9,7 +9,8 @@
       "teamLeadersEBI/1.0.0": {
         "dependencies": {
           "MongoDB.Bson": "2.21.0",
-          "MongoDB.Driver": "2.21.0"
+          "MongoDB.Driver": "2.21.0",
+          "MongoDB.Driver.Core": "2.21.0"
         },
         "runtime": {
           "teamLeadersEBI.dll": {}

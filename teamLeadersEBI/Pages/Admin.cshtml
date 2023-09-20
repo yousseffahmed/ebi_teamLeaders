@@ -1,0 +1,40 @@
+﻿@page
+@using static teamLeadersEBI.Pages.AdminModel;
+@model teamLeadersEBI.Pages.AdminModel
+@{
+
+}
+
+
+<h1>List of Banks</h1>
+<a class="btn btn-primary btn-sm" href="/add">Add Bank</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewData["Banks"] != null)
+        {
+            @foreach (var bank in ViewData["Banks"] as IEnumerable<BankInfo>)
+            {
+                <tr>
+                    <td>@bank.Name</td>
+
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="/admin/edit?id=">Edit</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@bank.Id">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+
+
+                    </td>
+                </tr>
+            }
+        }
+        
+    </tbody>
+
+</table>
+
