@@ -786,26 +786,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Maram\\.nuget\\packages\\": {}
+    "/Users/youssefahmed/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\teamLeadersEBI.csproj",
+      "projectUniqueName": "/Users/youssefahmed/Projects/gitPull/teamLeadersEBI/teamLeadersEBI.csproj",
       "projectName": "teamLeadersEBI",
-      "projectPath": "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\teamLeadersEBI.csproj",
-      "packagesPath": "C:\\Users\\Maram\\.nuget\\packages\\",
-      "outputPath": "D:\\ebiProj\\new\\ebi_teamLeaders\\teamLeadersEBI\\obj\\",
+      "projectPath": "/Users/youssefahmed/Projects/gitPull/teamLeadersEBI/teamLeadersEBI.csproj",
+      "packagesPath": "/Users/youssefahmed/.nuget/packages/",
+      "outputPath": "/Users/youssefahmed/Projects/gitPull/teamLeadersEBI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Maram\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/youssefahmed/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -856,7 +854,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
       }
     }
   }

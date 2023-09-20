@@ -47,10 +47,10 @@ namespace teamLeadersEBI.Pages
         
         public IEnumerable<BankInfo> GetBanks()
         {
-            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebi");
-            var collection = database.GetCollection<BankInfo>("banks");
+            var database = mongoClient.GetDatabase("ebiDB");
+            var collection = database.GetCollection<BankInfo>("Banks");
 
             var filter = Builders<BankInfo>.Filter.Empty;
             var banks = collection.Find(filter).ToList();
@@ -62,10 +62,10 @@ namespace teamLeadersEBI.Pages
 
         public void DeleteBank(string id)
         {
-            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebi");
-            var collection = database.GetCollection<BankInfo>("banks");
+            var database = mongoClient.GetDatabase("ebiDB");
+            var collection = database.GetCollection<BankInfo>("Banks");
 
             var filter = Builders<BankInfo>.Filter.Eq("_id", ObjectId.Parse(id)); // Convert the id to ObjectId
             collection.DeleteOne(filter);

@@ -2,55 +2,65 @@
 @model teamLeadersEBI.Pages.textModel
 @{
 }
+
 @if (ViewData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger">
         @ViewData["ErrorMessage"]
     </div>
 }
-
-<div class="container">
-    <form method="post">
-        <div>
-            <label for="fullName">Full Name:</label>
-            <input type="text" id="fullName" name="fullName" required />
+<div class="container mt-4" style="position: relative;">
+    <div class="bg-primary text-white p-3 rounded" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 375px; height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-top: -180px; z-index: 1;">
+        <h5 class="card-title" style="font-size: 40px;">REGISTRATION</h5>
+        <h5 class="card-title" style="font-size: 40px;">FORM</h5>
+    </div>
+    <div class="card shadow" style="z-index: 0; margin-top: 200px">
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label for="nationalID" class="form-label">National ID:</label>
+                    <input type="text" id="nationalID" name="nationalID" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label for="bank" class="form-label">Bank:</label>
+                    <select id="bank" name="bank" asp-for="bank" class="form-select">
+                        <option value="">Select a bank</option>
+                        @foreach (var bankName in ViewData["Banks"] as string[])
+                        {
+                            <option value="@bankName">@bankName</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" id="title" name="title" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label for="repManger" class="form-label">Reporting Manager:</label>
+                    <input type="text" id="repManger" name="repManger" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label for="essay" class="form-label">Introduce your Self:</label>
+                    <input type="text" id="essay" name="essay" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label for="pdfFile" class="form-label">CV/Certifications:</label>
+                    <input type="file" id="pdfFile" name="pdfFile" class="form-control" accept=".pdf" required />
+                </div>
+                <div class="mb-3">
+                    <label for="referal" class="form-label">Referral:</label>
+                    <input type="text" id="referal" name="referral" class="form-control" required />
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 py-2">Register</button>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="nationalID">National ID:</label>
-            <input type="text" id="nationalID" name="nationalID" required />
-        </div>
-        <div>
-            <label for="bank">Bank:</label>
-            <select id="bank" name="bank" asp-for="bank">
-                <option value="">Select a bank</option>
-                @foreach (var bankName in ViewData["Banks"] as string[])
-                {
-                    <option value="@bankName">@bankName</option>
-                }
-            </select>
-        </div>
-        <div>
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required />
-        </div>
-        <div>
-            <label for="repManger">Reporting Manager:</label>
-            <input type="text" id="repManger" name="repManger" required />
-        </div>
-        <div>
-            <label for="essay">Introduce your Self:</label>
-            <input type="text" id="essay" name="essay" required />
-        </div>
-        <div>
-            <label for="pdfFile">CV/Certifications:</label>
-            <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required />
-        </div>
-        <div>
-            <label for="referal">Referal:</label>
-            <input type="text" id="referal" name="referral" required />
-        </div>
-        <button type="submit">Register</button>
-    </form>
+    </div>
 </div>
 
 <script>
@@ -62,4 +72,3 @@
         }
     });
 </script>
-

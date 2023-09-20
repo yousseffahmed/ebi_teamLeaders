@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="..\build\teamLeadersEBI.props" />
+  <Import Project="../build/teamLeadersEBI.props" />
 </Project>

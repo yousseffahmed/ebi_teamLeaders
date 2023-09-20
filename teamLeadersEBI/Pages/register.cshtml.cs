@@ -110,7 +110,7 @@ namespace teamLeadersEBI.Pages
         {
             var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("Banks");
+            var database = mongoClient.GetDatabase("ebiDB");
             var collection = database.GetCollection<BsonDocument>("Banks");
 
             List<string> banksList = new List<string>();
