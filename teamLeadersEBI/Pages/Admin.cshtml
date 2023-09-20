@@ -5,9 +5,14 @@
 
 }
 
+<script>
+    function refreshPage() {
+        location.reload();
+    }
+
+ </script>
 
 <h1>List of Banks</h1>
-<a class="btn btn-primary btn-sm" href="/add">Add Bank</a>
 <table class="table">
     <thead>
         <tr>
@@ -15,6 +20,15 @@
         </tr>
     </thead>
     <tbody>
+        <div class="container">
+            <form method="post" onsubmit="refreshPage()">
+                <div>
+                    <label for="name">Bank Name:</label>
+                    <input type="text" id="name" name="name" required />
+                    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Add</button>
+                </div>
+            </form>
+        </div>
         @if (ViewData["Banks"] != null)
         {
             @foreach (var bank in ViewData["Banks"] as IEnumerable<BankInfo>)
@@ -23,18 +37,12 @@
                     <td>@bank.Name</td>
 
                     <td>
-                        <a class="btn btn-primary btn-sm" href="/admin/edit?id=">Edit</a>
                         <form method="post" asp-page-handler="Delete" asp-route-id="@bank.Id">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
-
-
                     </td>
                 </tr>
             }
         }
-        
     </tbody>
-
 </table>
-

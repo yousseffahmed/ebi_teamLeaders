@@ -16,10 +16,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/youssefahmed/Projects/gitPull/teamLeadersEBI
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/youssefahmed/Projects/gitPull/teamLeadersEBI/Pages/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRkLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/youssefahmed/Projects/gitPull/teamLeadersEBI/Pages/Admin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -15,49 +15,50 @@ namespace teamLeadersEBI.Pages
 {
     public class AdminModel : PageModel
     {
+        public AdminModel.BankInfo bankInfo =  new AdminModel.BankInfo();
+
+        public IActionResult OnPost()
+        {
+            var name = Request.Form["name"].ToString();
+            var document = new BsonDocument
+            {
+                {"name", name}
+            };
+            var connectionString = "mongodb://localhost:27017";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("ebiDB");
+            var collection = database.GetCollection<BsonDocument>("Banks");
+
+            try
+            {
+                collection.InsertOne(document);
+                Console.WriteLine("Document inserted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inserting document: {ex.Message}");
+            }
+            return RedirectToPage("Admin");
+        }
 
 
         public void OnGet()
         {
-
-
-
-            // var connectionString = "mongodb://localhost:27017";
-            //  var mongoClient = new MongoClient(connectionString);
-            // var database = mongoClient.GetDatabase("Banks");
-            // var collection = database.GetCollection<BsonDocument>("Banks");
-            // ViewData["Banks"] = getBanks();
-
-            //  var banks = getBanks();
-            // Console.WriteLine($"Number of banks retrieved: {banks.Length}");
-            // ViewData["Banks"] = banks;
             var banks = GetBanks();
-
-            // Set ViewData["Banks"] with the fetched collection
             ViewData["Banks"] = banks;
-
-
-
         }
 
-
-        
-
-
-        
         public IEnumerable<BankInfo> GetBanks()
         {
             var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
             var collection = database.GetCollection<BankInfo>("Banks");
-
             var filter = Builders<BankInfo>.Filter.Empty;
-            var banks = collection.Find(filter).ToList();
-
+            var sortDefinition = Builders<BankInfo>.Sort.Ascending(b => b.Name);
+            var banks = collection.Find(filter).Sort(sortDefinition).ToList();
             return banks;
         }
-
 
 
         public void DeleteBank(string id)
@@ -67,7 +68,7 @@ namespace teamLeadersEBI.Pages
             var database = mongoClient.GetDatabase("ebiDB");
             var collection = database.GetCollection<BankInfo>("Banks");
 
-            var filter = Builders<BankInfo>.Filter.Eq("_id", ObjectId.Parse(id)); // Convert the id to ObjectId
+            var filter = Builders<BankInfo>.Filter.Eq("_id", ObjectId.Parse(id));
             collection.DeleteOne(filter);
         }
 
@@ -79,21 +80,20 @@ namespace teamLeadersEBI.Pages
                 return NotFound();
             }
 
-            DeleteBank(id); // Call your DeleteBank method here to delete the record
+            DeleteBank(id); 
 
-            // Redirect to a page after successful deletion (you can customize this)
-            return RedirectToPage("/Admin"); // Replace "/admin" with the desired URL
+            return RedirectToPage("/Admin");
         }
 
 
 
         public class BankInfo
         {
-            [BsonId] // Mark this property as the ObjectId (_id) field
+            [BsonId]
             [BsonRepresentation(BsonType.ObjectId)]
             public string Id { get; set; }
 
-            [BsonElement("name")] // Map the "name" field to this property
+            [BsonElement("name")] 
             public string Name { get; set; }
         }
     }
