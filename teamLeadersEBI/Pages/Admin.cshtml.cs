@@ -24,10 +24,17 @@ namespace teamLeadersEBI.Pages
             {
                 {"name", name}
             };
-            var connectionString = "mongodb://localhost:27017";
+            /*var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
-            var collection = database.GetCollection<BsonDocument>("Banks");
+            var collection = database.GetCollection<BsonDocument>("Banks");*/
+
+
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("ebi");
+            var collection = database.GetCollection<BsonDocument>("banks");
+
 
             try
             {
@@ -50,26 +57,42 @@ namespace teamLeadersEBI.Pages
 
         public IEnumerable<BankInfo> GetBanks()
         {
-            var connectionString = "mongodb://localhost:27017";
+
+            /*var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
-            var collection = database.GetCollection<BankInfo>("Banks");
-            var filter = Builders<BankInfo>.Filter.Empty;
-            var sortDefinition = Builders<BankInfo>.Sort.Ascending(b => b.Name);
-            var banks = collection.Find(filter).Sort(sortDefinition).ToList();
+            var collection = database.GetCollection<BsonDocument>("Banks");*/
+
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("ebi");
+            var collection = database.GetCollection<BankInfo>("banks"); // Use BankInfo as the document type
+
+            var filter = Builders<BankInfo>.Filter.Empty; // Use BankInfo for the filter type
+            var sortDefinition = Builders<BankInfo>.Sort.Ascending(b => b.Name); // Assuming "Name" is a property in your BankInfo class
+
+            var banks = collection.Find(filter).Sort(sortDefinition).ToEnumerable(); // Map to BankInfo objects
+
             return banks;
         }
 
 
+
         public void DeleteBank(string id)
         {
-            var connectionString = "mongodb://localhost:27017";
+            /*var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
-            var collection = database.GetCollection<BankInfo>("Banks");
+            var collection = database.GetCollection<BankInfo>("Banks");*/
 
-            var filter = Builders<BankInfo>.Filter.Eq("_id", ObjectId.Parse(id));
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("ebi");
+            var collection = database.GetCollection<BsonDocument>("banks");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(id));
             collection.DeleteOne(filter);
+
         }
 
 
@@ -86,6 +109,31 @@ namespace teamLeadersEBI.Pages
         }
 
 
+        public IActionResult OnPostUpdate(string id, string name)
+        {
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(name))
+            {
+                return NotFound();
+            }
+
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("ebi");
+            var collection = database.GetCollection<BankInfo>("banks");
+
+            var filter = Builders<BankInfo>.Filter.Eq("_id", ObjectId.Parse(id));
+
+            // Use the Update.Set method to update the "Name" field
+            var update = Builders<BankInfo>.Update.Set("Name", name);
+
+            // Use UpdateOptions to specify upsert as false to prevent inserting a new document
+            var options = new UpdateOptions { IsUpsert = false };
+
+            // Perform the update
+            collection.UpdateOne(filter, update, options);
+
+            return RedirectToPage("/Admin");
+        }
 
         public class BankInfo
         {

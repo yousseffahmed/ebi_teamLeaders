@@ -1,48 +1,89 @@
 ﻿@page
-@using static teamLeadersEBI.Pages.AdminModel;
+@using static teamLeadersEBI.Pages.AdminModel
 @model teamLeadersEBI.Pages.AdminModel
-@{
 
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of Banks</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .hidden-form {
+            display: none;
+        }
 
-<script>
-    function refreshPage() {
-        location.reload();
-    }
+        .edit-button,
+        .delete-button {
+            margin-right: 20px; /* Adjust the margin as needed */
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".toggle-edit-form").click(function () {
+                var $formContainer = $(this).closest(".form-container");
+                $formContainer.find(".hidden-form, .cancel-button").toggle();
+                $formContainer.find(".edit-button, .delete-button").toggle();
+            });
 
- </script>
+            $(".cancel-button").click(function () {
+                var $formContainer = $(this).closest(".form-container");
+                $formContainer.find(".hidden-form, .cancel-button").hide();
+                $formContainer.find(".edit-button, .delete-button").show();
+            });
+        });
 
-<h1>List of Banks</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        <div class="container">
-            <form method="post" onsubmit="refreshPage()">
-                <div>
-                    <label for="name">Bank Name:</label>
-                    <input type="text" id="name" name="name" required />
-                    <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Add</button>
-                </div>
-            </form>
-        </div>
+        function refreshPage() {
+            location.reload();
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- <h1 class="mb-4">List of Banks</h1> -->
+
+        <form method="post" onsubmit="refreshPage()" class="mb-4">
+            <div class="form-group">
+                <label for="name">Bank Name:</label>
+                <input type="text" id="name" name="name" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
         @if (ViewData["Banks"] != null)
         {
-            @foreach (var bank in ViewData["Banks"] as IEnumerable<BankInfo>)
-            {
-                <tr>
-                    <td>@bank.Name</td>
-
-                    <td>
-                        <form method="post" asp-page-handler="Delete" asp-route-id="@bank.Id">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            }
+            <table class="table">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bank in ViewData["Banks"] as IEnumerable<BankInfo>)
+                    {
+                        <tr>
+                            <td>@bank.Name</td>
+                            <td>
+                                <div class="d-flex align-items-center form-container">
+                                    <form method="post" asp-page-handler="Update" asp-route-id="@bank.Id" class="hidden-form">
+                                        <div class="form-group">
+                                            <input type="text" name="name" value="@bank.Name" class="form-control" />
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                        <button type="button" class="btn btn-secondary cancel-button ml-2" style="display: none;">Cancel</button>
+                                    </form>
+                                    
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@bank.Id">
+                                        <button type="submit" class="btn btn-danger mr-2 delete-button">Delete</button>
+                                    </form>
+                                    <button class="btn btn-primary edit-button toggle-edit-form mr-2">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
-    </tbody>
-</table>
+    </div>
+</body>
+</html>
