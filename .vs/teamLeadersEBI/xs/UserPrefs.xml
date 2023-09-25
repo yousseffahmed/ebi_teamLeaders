@@ -1,14 +1,13 @@
 ﻿<Properties StartupConfiguration="{129A047F-1609-4745-8630-D48DA634D095}|https">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="teamLeadersEBI/Pages/Admin.cshtml.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="teamLeadersEBI/Pages/register.cshtml.cs">
     <Files>
-      <File FileName="teamLeadersEBI/Pages/register.cshtml" Line="27" Column="23" />
-      <File FileName="teamLeadersEBI/Pages/register.cshtml.cs" Line="35" Column="37" />
-      <File FileName="teamLeadersEBI/Pages/Admin.cshtml.cs" Line="82" Column="65" />
+      <File FileName="teamLeadersEBI/Pages/register.cshtml" Line="53" Column="23" />
+      <File FileName="teamLeadersEBI/Pages/register.cshtml.cs" Line="26" Column="9" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,15 +21,16 @@
                 <Node name="Shared" expanded="True">
                   <Node name="_Layout.cshtml" expanded="True" />
                 </Node>
-                <Node name="Admin.cshtml" expanded="True">
-                  <Node name="Admin.cshtml.cs" selected="True" />
-                </Node>
+                <Node name="Admin.cshtml" expanded="True" />
                 <Node name="Index.cshtml" expanded="True" />
                 <Node name="Privacy.cshtml" expanded="True" />
-                <Node name="register.cshtml" expanded="True" />
+                <Node name="register.cshtml" expanded="True">
+                  <Node name="register.cshtml.cs" selected="True" />
+                </Node>
               </Node>
               <Node name="wwwroot" expanded="True">
                 <Node name="css" expanded="True" />
+                <Node name="js" expanded="True" />
                 <Node name="lib" expanded="True" />
               </Node>
             </Node>
@@ -40,5 +40,5 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.teamLeadersEBI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

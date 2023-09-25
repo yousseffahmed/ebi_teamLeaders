@@ -15,7 +15,7 @@ namespace teamLeadersEBI.Pages
     {
         public bool hasData = false;
         public String fullName = "";
-        public int nationalID;
+        public String nationalID;
         public String bank = "";
         public String title = "";
         public String reportingMang = "";
@@ -36,15 +36,9 @@ namespace teamLeadersEBI.Pages
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
             var collection = database.GetCollection<BsonDocument>("regForm");
+
             fullName = Request.Form["fullName"];
-            if (int.TryParse(Request.Form["nationalID"], out int parsedNationalID))
-            {
-                nationalID = parsedNationalID;
-            }
-            else
-            {
-                Console.WriteLine("error");
-            }
+            nationalID = Request.Form["nationalID"];
             bank = Request.Form["bank"];
             title = Request.Form["title"];
             reportingMang = Request.Form["repManger"];
@@ -58,12 +52,14 @@ namespace teamLeadersEBI.Pages
                 {
                     PdfFile.CopyTo(ms);
                     pdfData = ms.ToArray();
+                    Console.WriteLine($"pdfData has {pdfData.Length} bytes of data.");
                 }
             }
             if (Exists())
             {
                 ViewData["ErrorMessage"] = "A matching National ID already exists.";
             }
+
             var document = new BsonDocument
             {
                 { "fullName",  fullName},
@@ -72,8 +68,18 @@ namespace teamLeadersEBI.Pages
                 { "title", title },
                 { "repMang", reportingMang },
                 { "essay", essay },
-                { "referal", referal }
+                { "referal", referal },
+                { "status", " " },
+                { "reason", " " },
+                { "date", getTodaysDate() }
             };
+
+            if (pdfData != null && pdfData.Length > 0)
+            {
+                document.Add("pdfData", new BsonBinaryData(pdfData));
+            }
+
+
             try
             {
                 collection.InsertOne(document);
@@ -83,6 +89,7 @@ namespace teamLeadersEBI.Pages
             {
                 Console.WriteLine($"Error inserting document: {ex.Message}");
             }
+            ViewData["Banks"] = getBanks();
         }
 
         public bool Exists()
@@ -98,12 +105,26 @@ namespace teamLeadersEBI.Pages
 
             foreach (var document in cursor.ToEnumerable())
             {
-                var natID = document["natID"].AsInt32;
-                if (natID.Equals(nationalID))
+                var natIDValue = document["natID"];
+
+                if (natIDValue.BsonType == MongoDB.Bson.BsonType.Int32)
                 {
-                    return true;
+                    var natID = natIDValue.AsInt32.ToString();
+                    if (natID.Equals(nationalID.ToString()))
+                    {
+                        return true;
+                    }
+                }
+                else if (natIDValue.BsonType == MongoDB.Bson.BsonType.String)
+                {
+                    var natID = natIDValue.AsString;
+                    if (natID.Equals(nationalID.ToString()))
+                    {
+                        return true;
+                    }
                 }
             }
+
             return false;
         }
         public string[] getBanks()
@@ -125,6 +146,11 @@ namespace teamLeadersEBI.Pages
             }
 
             return banksList.ToArray();
+        }
+        public DateTime getTodaysDate()
+        {
+            DateTime today = DateTime.Today;
+            return today;
         }
     }
 }

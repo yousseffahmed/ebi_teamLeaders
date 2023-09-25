@@ -24,16 +24,16 @@ namespace teamLeadersEBI.Pages
             {
                 {"name", name}
             };
-            /*var connectionString = "mongodb://localhost:27017";
+            var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
-            var collection = database.GetCollection<BsonDocument>("Banks");*/
+            var collection = database.GetCollection<BsonDocument>("Banks");
 
 
-            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
-            var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebi");
-            var collection = database.GetCollection<BsonDocument>("banks");
+            //var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            //var mongoClient = new MongoClient(connectionString);
+            //var database = mongoClient.GetDatabase("ebi");
+            //var collection = database.GetCollection<BsonDocument>("banks");
 
 
             try
@@ -57,16 +57,10 @@ namespace teamLeadersEBI.Pages
 
         public IEnumerable<BankInfo> GetBanks()
         {
-
-            /*var connectionString = "mongodb://localhost:27017";
+            var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
-            var collection = database.GetCollection<BsonDocument>("Banks");*/
-
-            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
-            var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebi");
-            var collection = database.GetCollection<BankInfo>("banks"); // Use BankInfo as the document type
+            var collection = database.GetCollection<BankInfo>("Banks"); // Use BankInfo as the document type
 
             var filter = Builders<BankInfo>.Filter.Empty; // Use BankInfo for the filter type
             var sortDefinition = Builders<BankInfo>.Sort.Ascending(b => b.Name); // Assuming "Name" is a property in your BankInfo class
@@ -80,15 +74,10 @@ namespace teamLeadersEBI.Pages
 
         public void DeleteBank(string id)
         {
-            /*var connectionString = "mongodb://localhost:27017";
+            var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("ebiDB");
-            var collection = database.GetCollection<BankInfo>("Banks");*/
-
-            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
-            var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebi");
-            var collection = database.GetCollection<BsonDocument>("banks");
+            var collection = database.GetCollection<BsonDocument>("Banks");
 
             var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(id));
             collection.DeleteOne(filter);
@@ -115,11 +104,14 @@ namespace teamLeadersEBI.Pages
             {
                 return NotFound();
             }
-
-            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var connectionString = "mongodb://localhost:27017";
             var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebi");
-            var collection = database.GetCollection<BankInfo>("banks");
+            var database = mongoClient.GetDatabase("ebiDB");
+            var collection = database.GetCollection<BankInfo>("Banks");
+            //var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            //var mongoClient = new MongoClient(connectionString);
+            //var database = mongoClient.GetDatabase("ebi");
+            //var collection = database.GetCollection<BankInfo>("banks");
 
             var filter = Builders<BankInfo>.Filter.Eq("_id", ObjectId.Parse(id));
 
