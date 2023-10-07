@@ -1,0 +1,109 @@
+﻿@page
+@model teamLeadersEBI.Pages.RegRequestsModel
+@{
+}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".reject-button").click(function () {
+            $(this).closest("tr").find(".reject-container").toggle();
+        });
+    });
+</script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Forms</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration Form Requests</h1>
+
+   
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>National ID</th>
+                <th>Bank</th>
+                <th>Title</th>
+                <th>Representative Manager</th>
+                <th>Essay</th>
+                <th>Referral</th>
+                <th>Status</th>
+                <th>Reason</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var form in ViewData["Forms"] as IEnumerable<RegRequestsModel.FormInfo>)
+            {
+
+
+                @if (string.IsNullOrWhiteSpace(form.FormStatus))
+
+                {
+                    <tr>
+                        <td>@form.Id</td>
+                        <td>@form.FName</td>
+                        <td>@form.NID</td>
+                        <td>@form.Bank</td>
+                        <td>@form.Title</td>
+                        <td>@form.RepM</td>
+                        <td>@form.Essay</td>
+                        <td>@form.Referral</td>
+                        <td>@form.FormStatus</td>
+                        <td>@form.StatusReason</td>
+                        <td>@form.Date.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            <form method="post" asp-page-handler="UpdateAccepted">
+                                <input type="hidden" name="id" value="@form.Id" />
+                                <input type="hidden" name="status" value="Accepted" />
+                                <button type="submit">Accept</button>
+                            </form>
+                        </td>
+
+
+                        <td>
+                            <button class="reject-button">Reject</button>
+                            <div class="reject-container">
+                                <form method="post" asp-page-handler="UpdateReasoning">
+                                    <input type="hidden" name="id" value="@form.Id" />
+                                    <label for="reason">Reason for Rejection:</label>
+                                    <input type="text" name="reason" id="reason" />
+                                    <button type="submit">Submit Reason</button>
+                                </form>
+                            </div>
+                        </td>
+
+
+                        
+                    </tr>
+                }
+                
+            }
+        </tbody>
+    </table>
+</body>
+</html>

@@ -32,9 +32,9 @@ namespace teamLeadersEBI.Pages
 
         public void OnPost()
         {
-            var connectionString = "mongodb://localhost:27017";
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
             var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebiDB");
+            var database = mongoClient.GetDatabase("ebi");
             var collection = database.GetCollection<BsonDocument>("regForm");
 
             fullName = Request.Form["fullName"];
@@ -94,9 +94,9 @@ namespace teamLeadersEBI.Pages
 
         public bool Exists()
         {
-            var connectionString = "mongodb://localhost:27017";
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
             var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebiDB");
+            var database = mongoClient.GetDatabase("ebi");
             var collection = database.GetCollection<BsonDocument>("regForm");
 
             var filter = Builders<BsonDocument>.Filter.Empty;
@@ -129,10 +129,10 @@ namespace teamLeadersEBI.Pages
         }
         public string[] getBanks()
         {
-            var connectionString = "mongodb://localhost:27017";
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
             var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("ebiDB");
-            var collection = database.GetCollection<BsonDocument>("Banks");
+            var database = mongoClient.GetDatabase("ebi");
+            var collection = database.GetCollection<BsonDocument>("banks");
 
             List<string> banksList = new List<string>();
 
