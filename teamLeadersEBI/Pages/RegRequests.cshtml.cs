@@ -12,7 +12,9 @@ namespace teamLeadersEBI.Pages
         public void OnGet()
         {
             var forms = GetForms();
+            var bankNames = GetUniqueBankNames();
             ViewData["Forms"] = forms;
+            ViewData["BankNames"] = bankNames;
         }
 
 
@@ -156,6 +158,17 @@ namespace teamLeadersEBI.Pages
             [BsonElement("date")]
             [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
             public DateTime Date { get; set; }
+        }
+        public List<string> GetUniqueBankNames()
+        {
+            var connectionString = "mongodb+srv://maramhossama:marmar123@cluster0.qyrbfln.mongodb.net/";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("ebi");
+            var collection = database.GetCollection<FormInfo>("regForm");
+
+            var distinctBankNames = collection.Distinct<string>("bank", FilterDefinition<FormInfo>.Empty).ToList();
+
+            return distinctBankNames;
         }
     }
 }

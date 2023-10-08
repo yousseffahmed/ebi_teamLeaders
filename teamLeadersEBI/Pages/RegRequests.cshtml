@@ -26,84 +26,117 @@
 
         th, td {
             border: 1px solid #dddddd;
-            text-align: left;
+            text-align: center;
             padding: 8px;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: lightblue;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>Registration Form Requests</h1>
-
-   
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Full Name</th>
-                <th>National ID</th>
-                <th>Bank</th>
-                <th>Title</th>
-                <th>Representative Manager</th>
-                <th>Essay</th>
-                <th>Referral</th>
-                <th>Status</th>
-                <th>Reason</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var form in ViewData["Forms"] as IEnumerable<RegRequestsModel.FormInfo>)
-            {
-
-
-                @if (string.IsNullOrWhiteSpace(form.FormStatus))
-
-                {
+    <div class="bg-primary text-white p-3 rounded" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 250px; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-top: 95px; z-index: 1;">
+        <h5 class="card-title" style="font-size: 35px;">Form Requests</h5>
+    </div>
+    <div class="container text-center" style="display: flex; justify-content: center; align-items: center;">
+        <div class="card shadow" style="padding: 20px; border: 2px solid #ccc; border-radius: 10px; margin-top: 150px;">
+            <table>
+                <thead>
                     <tr>
-                        <td>@form.Id</td>
-                        <td>@form.FName</td>
-                        <td>@form.NID</td>
-                        <td>@form.Bank</td>
-                        <td>@form.Title</td>
-                        <td>@form.RepM</td>
-                        <td>@form.Essay</td>
-                        <td>@form.Referral</td>
-                        <td>@form.FormStatus</td>
-                        <td>@form.StatusReason</td>
-                        <td>@form.Date.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                        <td>
-                            <form method="post" asp-page-handler="UpdateAccepted">
-                                <input type="hidden" name="id" value="@form.Id" />
-                                <input type="hidden" name="status" value="Accepted" />
-                                <button type="submit">Accept</button>
-                            </form>
-                        </td>
-
-
-                        <td>
-                            <button class="reject-button">Reject</button>
-                            <div class="reject-container">
-                                <form method="post" asp-page-handler="UpdateReasoning">
-                                    <input type="hidden" name="id" value="@form.Id" />
-                                    <label for="reason">Reason for Rejection:</label>
-                                    <input type="text" name="reason" id="reason" />
-                                    <button type="submit">Submit Reason</button>
-                                </form>
+                        <th>Full Name</th>
+                        <th>National ID</th>
+                        <th>Bank</th>
+                        <th>Title</th>
+                        <th>Representative Manager</th>
+                        <th>Essay</th>
+                        <th>Referral</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                        <th>
+                            <div style="display: flex; align-items: center;">
+                                Bank
+                                <select id="filterBank">
+                                    <option value="all">All</option>
+                                    @foreach (var bankName in ViewData["BankNames"] as IEnumerable<string>)
+                                    {
+                                        <option value="@bankName">@bankName</option>
+                                    }
+                                </select>
                             </div>
-                        </td>
-
-
-                        
+                        </th>
                     </tr>
-                }
-                
-            }
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                    @foreach (var form in ViewData["Forms"] as IEnumerable<RegRequestsModel.FormInfo>)
+                    {
+                        @if (string.IsNullOrWhiteSpace(form.FormStatus))
+
+                        {
+                            <tr>
+                                <td>@form.FName</td>
+                                <td>@form.NID</td>
+                                <td>@form.Bank</td>
+                                <td>@form.Title</td>
+                                <td>@form.RepM</td>
+                                <td>@form.Essay</td>
+                                <td>@form.Referral</td>
+                                <td>@form.FormStatus</td>
+                                <td>@form.StatusReason</td>
+                                <td>@form.Date.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td>
+                                    <form method="post" asp-page-handler="UpdateAccepted">
+                                        <input type="hidden" name="id" value="@form.Id" />
+                                        <input type="hidden" name="status" value="Accepted" />
+                                        <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;">Accept</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <button type="button" class="reject-button" data-reject-container="reject-container-@form.Id">
+                                        Reject
+                                    </button>
+                                    <div class="reject-container hidden" id="reject-container-@form.Id">
+                                        <form method="post" asp-page-handler="UpdateReasoning">
+                                            <input type="hidden" name="id" value="@form.Id" />
+                                            <label for="reason">Reason for Rejection:</label>
+                                            <input type="text" name="reason" id="reason" />
+                                            <button type="submit">Submit Reason</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
+<script>$(document).ready(function () {
+        $(".reject-button").click(function () {
+            var rejectContainerId = $(this).data("reject-container");
+            var rejectContainer = $("#" + rejectContainerId);
+            rejectContainer.toggleClass("hidden");
+            $(this).toggleClass("hidden");
+        });
+
+        $("#filterBank").change(function () {
+            var selectedBank = $(this).val();
+
+            $("tbody tr").each(function () {
+                var bankColumn = $(this).find("td:nth-child(3)").text();
+                if (selectedBank === "all" || bankColumn.toLowerCase() === selectedBank.toLowerCase()) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });</script>
+
 </html>

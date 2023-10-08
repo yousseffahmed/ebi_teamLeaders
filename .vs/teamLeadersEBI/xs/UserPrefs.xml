@@ -1,32 +1,26 @@
 ﻿<Properties StartupConfiguration="{129A047F-1609-4745-8630-D48DA634D095}|https">
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="teamLeadersEBI/Pages/register.cshtml.cs">
+  <MonoDevelop.Ide.ItemProperties.teamLeadersEBI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="teamLeadersEBI/Pages/AdminRegForms.cshtml">
     <Files>
-      <File FileName="teamLeadersEBI/Pages/register.cshtml" Line="53" Column="23" />
-      <File FileName="teamLeadersEBI/Pages/register.cshtml.cs" Line="26" Column="9" />
+      <File FileName="teamLeadersEBI/Pages/RegRequests.cshtml" Line="7" Column="1" />
+      <File FileName="teamLeadersEBI/Pages/AdminRegForms.cshtml" Line="37" Column="64" />
+      <File FileName="teamLeadersEBI/Pages/RegRequests.cshtml.cs" Line="14" Column="12" />
+      <File FileName="teamLeadersEBI/Pages/AdminRegForms.cshtml.cs" Line="75" Column="73" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="teamLeadersEBI" expanded="True">
-            <Node name="teamLeadersEBI" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="PackageDependencies" expanded="True" />
-              </Node>
-              <Node name="Pages" expanded="True">
-                <Node name="Shared" expanded="True">
-                  <Node name="_Layout.cshtml" expanded="True" />
-                </Node>
-                <Node name="Admin.cshtml" expanded="True" />
-                <Node name="Index.cshtml" expanded="True" />
-                <Node name="Privacy.cshtml" expanded="True" />
-                <Node name="register.cshtml" expanded="True">
-                  <Node name="register.cshtml.cs" selected="True" />
-                </Node>
+            <Node name="teamLeadersEBI">
+              <Node name="Pages">
+                <Node name="AdminRegForms.cshtml" selected="True" />
+                <Node name="RegRequests.cshtml" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">
                 <Node name="css" expanded="True" />
@@ -39,6 +33,4 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.teamLeadersEBI PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
